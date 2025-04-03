@@ -2,20 +2,36 @@
 #include <stdio.h>
 #include "evale_srv_moyenne.h"
 
-// Fonction principale
 int main() {
     int valeurs[TAILLE];
-
-    if (!lire_valeurs("Valeurs.txt", valeurs)) {
+    if (!lireValeurs(valeurs)) {
+        printf("Erreur : lecture du fichier ou valeurs manquantes.\n");
         return 1;
     }
-
-    int min1, min2, i1, i2;
-    trouver_deux_plus_petits(valeurs, &min1, &min2, &i1, &i2);
-
-    printf("Les deux plus petites valeurs sont : %d et %d\n", min1, min2);
-
-    afficher_valeurs_sans_deux_plus_petits(valeurs, i1, i2);
-
+ 
+    // Copier les valeurs dans un tableau modifiable
+    int temp[TAILLE];
+    for (int i = 0; i < TAILLE; i++) temp[i] = valeurs[i];
+    int taille = TAILLE;
+ 
+    // Supprimer les 2 plus grands
+    for (int i = 0; i < 2; i++) {
+        int maxIndex = trouverMax(temp, taille);
+        supprimer(temp, &taille, maxIndex);
+    }
+ 
+    // Supprimer les 2 plus petits
+    for (int i = 0; i < 2; i++) {
+        int minIndex = trouverMin(temp, taille);
+        supprimer(temp, &taille, minIndex);
+    }
+ 
+    // Afficher les valeurs restantes
+    printf("Valeurs finales :\n");
+    for (int i = 0; i < taille; i++) {
+        printf("%d ", temp[i]);
+    }
+    printf("\n");
+ 
     return 0;
 }

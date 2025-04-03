@@ -1,4 +1,6 @@
 #define TAILLE 8
-int lire_valeurs(const char *nom_fichier, int valeurs[]);
-void afficher_valeurs_sans_deux_plus_petits(int valeurs[], int i1, int i2);
-void trouver_deux_plus_petits(int valeurs[], int *min1, int *min2, int *i1, int *i2);
+#define RESTE 4
+void supprimer(int tab[], int *taille, int index);
+int trouverMax(int tab[], int taille);
+int trouverMin(int tab[], int taille);
+int lireValeurs(int tab[]);
