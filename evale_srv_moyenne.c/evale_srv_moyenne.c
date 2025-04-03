@@ -1,37 +1,23 @@
-//yanis
+//yanis antoine
 #include <stdio.h>
 #include "evale_srv_moyenne.h"
 
 int main() {
     int valeurs[TAILLE];
+    float resultat[RESTE];
+ 
     if (!lireValeurs(valeurs)) {
-        printf("Erreur : lecture du fichier ou valeurs manquantes.\n");
+        printf("Erreur : fichier introuvable ou nombre de valeurs incorrect.\n");
         return 1;
     }
  
-    // Copier les valeurs dans un tableau modifiable
-    int temp[TAILLE];
-    for (int i = 0; i < TAILLE; i++) temp[i] = valeurs[i];
-    int taille = TAILLE;
+    filtrerEtConvertir(valeurs, resultat);
  
-    // Supprimer les 2 plus grands
-    for (int i = 0; i < 2; i++) {
-        int maxIndex = trouverMax(temp, taille);
-        supprimer(temp, &taille, maxIndex);
-    }
+    printf("Valeurs conservées après suppression des extrêmes :\n");
+    afficherValeurs(resultat, RESTE);
  
-    // Supprimer les 2 plus petits
-    for (int i = 0; i < 2; i++) {
-        int minIndex = trouverMin(temp, taille);
-        supprimer(temp, &taille, minIndex);
-    }
- 
-    // Afficher les valeurs restantes
-    printf("Valeurs finales :\n");
-    for (int i = 0; i < taille; i++) {
-        printf("%d ", temp[i]);
-    }
-    printf("\n");
+    float moyenne = calculerMoyenne(resultat);
+    printf("Moyenne : %.2f\n", moyenne);
  
     return 0;
 }
