@@ -1,3 +1,4 @@
+//Anthoine Yanis
 #define TAILLE 8
 #define RESTE 4
 void supprimer(int tab[], int *taille, int index);
